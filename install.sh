@@ -41,3 +41,10 @@ cp ./lib/ps1 $HOME/.prompt
 
 sudo cp ./lib/gr /usr/local/bin
 sudo cp ./lib/gd /usr/local/bin
+
+echo "Install MPlayer"
+sudo apt-get install mplayer
+
+echo "Reading the list"
+echo "You can press ctrl-C to terminate the process."
+./lib/mkvoice.sh
