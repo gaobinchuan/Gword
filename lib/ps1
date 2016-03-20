@@ -88,8 +88,8 @@ bash_prompt() {
   # reset
   local RESET="\[\033[0;37m\]"
 
-#  PS1="$Y\u@\h $BG\$(__git_prompt)  "$BC'$(word)'"   $BR\t\n$BY\w$BW\$`tput sgr0` "
-  PS1="$Y\u@\h "$BC'$(word)'" $BG\$(__git_prompt) $BY\w $BR\t $BW\$`tput sgr0`\n"
+  PS1="$Y\u@\h $BG\$(__git_prompt)  "$BC'$(word)'"   $BR\t\n$BY\w$BW\$\[`tput sgr0`\] "
+#  PS1="$Y\u@\h "$BC'$(word)'" $BG\$(__git_prompt) $BY\w $BR\t $BW\$`tput sgr0`\n"
 
 }
 

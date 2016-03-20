@@ -9,7 +9,8 @@ if ! [ -f ~/.gread/${1}.mp3 ]; then
     u1=${l416#*displayAudio(\'}
     u2=${u1%%\')\"*}
     cd ~/.gread
-    wget -q -P "~/.gread" -O "${1}.mp3" "$u2"
+    #wget -q -P "~/.gread" -O "${1}.mp3" "$u2"
+    curl -s -o "${1}.mp3" "${u2}"
 
 fi
 
@@ -23,9 +24,16 @@ if ! [ -f ~/.gread/en_${1}.mp3 ]; then
     u1=${l416#*displayAudio(\'}
     u2=${u1%%\')\"*}
     cd ~/.gread
-    wget -q -P "~/.gread" -O "en_${1}.mp3" "$u2"
+    #wget -q -P "~/.gread" -O "en_${1}.mp3" "$u2"
+    curl -s -o "en_${1}.mp3" "${u2}"
 
 fi
 
-mplayer "${HOME}/.gread/${1}.mp3" "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null &
+if [[ `uname` == 'Darwin' || `uname` == 'darwin' ]]; then
+    afplay "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null
+    afplay "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null
+else
+    mplayer "${HOME}/.gread/${1}.mp3" 1>/dev/null 2>/dev/null
+    mplayer "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null
+fi
 
