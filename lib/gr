@@ -27,6 +27,5 @@ if ! [ -f ~/.gread/en_${1}.mp3 ]; then
 
 fi
 
-mplayer "${HOME}/.gread/${1}.mp3" 1>/dev/null 2>/dev/null &
-mplayer "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null &
+mplayer "${HOME}/.gread/${1}.mp3" "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null &
 
