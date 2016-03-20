@@ -30,7 +30,7 @@ if ! [ -f ~/.gread/en_${1}.mp3 ]; then
 fi
 
 if [[ `uname` == 'Darwin' || `uname` == 'darwin' ]]; then
-    afplay "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null
+    afplay "${HOME}/.gread/${1}.mp3" 1>/dev/null 2>/dev/null
     afplay "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null
 else
     mplayer "${HOME}/.gread/${1}.mp3" 1>/dev/null 2>/dev/null
