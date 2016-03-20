@@ -38,3 +38,6 @@ if [[ $havePrompt -lt 2 ]]; then
 fi
 
 cp ./lib/ps1 $HOME/.prompt
+
+sudo cp ./lib/gr /usr/local/bin
+sudo cp ./lib/gd /usr/local/bin

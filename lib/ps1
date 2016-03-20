@@ -58,6 +58,7 @@ function word {
   local sn=$(( rand % GAOBIN_WORD_COUNT / 2 ))
   local ind=$(( sn * 2 + 1))
   local en=`sed -n $(( ind + 0 )),1p ~/.Gwords/list.txt | tr [:space:] ' '`
+  gr $en &
   local zh=`sed -n $(( ind + 1 )),1p ~/.Gwords/list.txt | tr [:space:] ' '`
   echo $en `tput setaf 3`:`tput setaf 4` $zh
 }

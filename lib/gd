@@ -1,0 +1,25 @@
+#!/bin/bash
+gr ${1}
+html=`curl -s www.iciba.com/${1} | tr [:space:] ' '`
+c=`echo $html | 
+    sed 's/.*article\ info\-base/</' | 
+    sed -e 's/_trackEvent.*/>/g' | 
+    sed -e 's/<span>[^<.英美]*nbsp;\/<\/span>//g' | 
+    sed -e 's/<span>IELTS<\/span>//g' | 
+    sed -e 's/<span/\\\n</g'`
+cn=`echo $c | sed -e 's/<[^<]*>//g'`
+if [[ `echo -e $cn | wc -l` -lt 20 ]]; then
+    echo -e $cn
+fi
+
+s="<'"`echo $html | sed -e 's/.*双语例句\ start//' | sed -e 's/双语例句\ end.*//'`">"
+sn=`echo $s | 
+    sed -e 's/p-order/>\\\n</g' | 
+    sed -e 's/<[^<]*>//g' | 
+    sed -e 's/^.*收起\ *\\\n/\\\n/' | 
+    sed -e 's/来自[A-Za-z .]*//g' | 
+    sed -e 's/查看更多//g' | 
+    sed -e 's/《[^0-9]*》//g'`
+if [[ `echo -e $sn | wc -l` -lt 20 ]]; then
+    echo -e "$sn"
+fi
