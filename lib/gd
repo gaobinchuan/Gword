@@ -1,5 +1,5 @@
 #!/bin/bash
-gr ${1}
+gr ${1} &
 html=`curl -s www.iciba.com/${1} | tr [:space:] ' '`
 c=`echo $html | 
     sed 's/.*article\ info\-base/</' | 
