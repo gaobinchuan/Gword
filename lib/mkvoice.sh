@@ -8,5 +8,6 @@ do
     cn=`sed -n $(( i * 2 + 2 )),1p ~/.Gwords/list.txt | tr [:space:] ' '`
     echo '================================================'
     gw $en
+    gd $en
     sleep 7
 done
