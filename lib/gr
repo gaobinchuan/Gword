@@ -1,38 +1,38 @@
 #!/bin/bash
-if ! [ -f ~/.gread/${1}.mp3 ]; then
+if ! [ -f ~/.Gwords/mp3/${1}.mp3 ]; then
 
-    if ! [ -d ~/.gread ]; then
-        mkdir ~/.gread
+    if ! [ -d ~/.Gwords/mp3 ]; then
+        mkdir ~/.Gwords/mp3
     fi
 
     l416=`curl -s http://www.iciba.com/${1} | grep '<span>美'`
     u1=${l416#*displayAudio(\'}
     u2=${u1%%\')\"*}
-    cd ~/.gread
+    cd ~/.Gwords/mp3
     #wget -q -P "~/.gread" -O "${1}.mp3" "$u2"
     curl -s -o "${1}.mp3" "${u2}"
 
 fi
 
-if ! [ -f ~/.gread/en_${1}.mp3 ]; then
+if ! [ -f ~/.Gwords/mp3/en_${1}.mp3 ]; then
 
-    if ! [ -d ~/.gread ]; then
-        mkdir ~/.gread
+    if ! [ -d ~/.Gwords/mp3 ]; then
+        mkdir ~/.Gwords/mp3
     fi
 
     l416=`curl -s http://www.iciba.com/${1} | grep '<span>英'`
     u1=${l416#*displayAudio(\'}
     u2=${u1%%\')\"*}
-    cd ~/.gread
+    cd ~/.Gwords/mp3
     #wget -q -P "~/.gread" -O "en_${1}.mp3" "$u2"
     curl -s -o "en_${1}.mp3" "${u2}"
 
 fi
 
 if [[ `uname` == 'Darwin' || `uname` == 'darwin' ]]; then
-    #afplay "${HOME}/.gread/${1}.mp3" 1>/dev/null 2>/dev/null
-    afplay "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null &
+    #afplay "${HOME}/.Gwords/mp3/${1}.mp3" 1>/dev/null 2>/dev/null
+    afplay "${HOME}/.Gwords/mp3/en_${1}.mp3" 1>/dev/null 2>/dev/null &
 else
-    mplayer "${HOME}/.gread/${1}.mp3" "${HOME}/.gread/en_${1}.mp3" 1>/dev/null 2>/dev/null &
+    mplayer "${HOME}/.Gwords/mp3/${1}.mp3" "${HOME}/.Gwords/mp3/en_${1}.mp3" 1>/dev/null 2>/dev/null &
 fi
 

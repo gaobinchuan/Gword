@@ -51,16 +51,23 @@ function __name_and_server {
   echo "`whoami`@`hostname -s` "
 }
 
-GAOBIN_WORD_COUNT=`cat ~/.Gwords/list.txt | wc -l`
+GWORDS_COUNT=`cat ~/.Gwords/list.txt | wc -l`
 
-function word {
+function __gwords_random_word {
   local rand=`head -200 /dev/urandom | cksum | cut -f1 -d" "`
-  local sn=$(( rand % GAOBIN_WORD_COUNT / 2 ))
+  local sn=$(( rand % GWORDS_COUNT / 2 ))
   local ind=$(( sn * 2 + 1))
   local en=`sed -n $(( ind + 0 )),1p ~/.Gwords/list.txt | tr [:space:] ' '`
-  gr $en &
+  if $GWORDS_READ_ON; then
+    gr $en &
+  fi
   local zh=`sed -n $(( ind + 1 )),1p ~/.Gwords/list.txt | tr [:space:] ' '`
   echo $en `tput setaf 3`:`tput setaf 4` $zh
+}
+
+GWORDS_READ_ON=true
+function shutup {
+  GWORDS_READ_ON=!$GWORDS_READ_ON
 }
 
 bash_prompt() {
@@ -88,10 +95,11 @@ bash_prompt() {
   # reset
   local RESET="\[\033[0;37m\]"
 
-  PS1="$Y\u@\h $BG\$(__git_prompt)  "$BC'$(word)'"   $BR\t\n$BY\w$BW\$\[`tput sgr0`\] "
+  PS1="$Y\u@\h $BG\$(__git_prompt)  "$BC'$(__gwords_random_word)'"   $BR\t\n$BY\w$BW\$\[`tput sgr0`\] "
 #  PS1="$Y\u@\h "$BC'$(word)'" $BG\$(__git_prompt) $BY\w $BR\t $BW\$`tput sgr0`\n"
 
 }
 
 bash_prompt
 unset bash_prompt
+export GWORDS_COUNT=$GWORDS_COUNT

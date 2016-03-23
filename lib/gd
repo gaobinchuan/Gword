@@ -1,6 +1,16 @@
 #!/bin/bash
 gr ${1} &
-html=`curl -s www.iciba.com/${1} | tr [:space:] ' '`
+if ! [ -f ~/.Gwords/dict/${1}.html ]; then
+
+    if ! [ -d ~/.Gwords/dict ]; then
+        mkdir -p ~/.Gwords/dict
+    fi
+
+    cd ~/.Gwords/dict
+    curl -s -o "${1}.html" http://www.iciba.com/${1}
+fi
+
+html=`cat ~/.Gwords/dict/${1}.html | tr [:space:] ' '`
 c=`echo $html | 
     sed 's/.*article\ info\-base/</' | 
     sed -e 's/_trackEvent.*/>/g' | 
@@ -22,4 +32,12 @@ sn=`echo $s |
     sed -e 's/《[^0-9]*》//g'`
 if [[ `echo -e $sn | wc -l` -lt 20 ]]; then
     echo -e "$sn"
+fi
+
+if [[ `echo -e $cn | wc -l` -gt 30 ]]; then
+    rm ~/.Gwords/dict/${1}.html
+fi
+
+if [[ `echo -e $sn | wc -l` -gt 50 ]]; then
+    rm ~/.Gwords/dict/${1}.html
 fi
