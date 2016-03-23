@@ -1,6 +1,10 @@
 #/bin/bash
-if [[ ! -d $HOME/.Gwords ]]; then
-    mkdir $HOME/.Gwords
+if [[ ! -d $HOME/.Gwords/mp3 ]]; then
+    mkdir -p $HOME/.Gwords/mp3
+fi
+
+if [[ -d $HOME/.gread ]]; then
+    mv $HOME/.gread/* $HOME/.Gwords/mp3
 fi
 
 if [[ $1 ]]; then
@@ -36,15 +40,24 @@ if [[ $havePrompt -lt 2 ]]; then
     echo '  source "$HOME/.prompt"' >> $HOME/.env
     echo 'fi' >> $HOME/.env
 fi
+havePrompt=`grep "HOME/.Gwords" $HOME/.env | wc -l`
+if [[ $havePrompt -lt 2 ]]; then
+    echo '' >> $HOME/.env
+    echo 'PATH=$HOME/.Gwords:$PATH' >> $HOME/.env
+fi
 
 cp ./lib/ps1 $HOME/.prompt
 
-sudo cp ./lib/gr /usr/local/bin
-sudo cp ./lib/gd /usr/local/bin
+sudo cp ./lib/gr $HOME/.Gwords
+sudo cp ./lib/gd $HOME/.Gwords
+sudo cp ./lib/gw $HOME/.Gwords
+sudo cp ./lib/grecite $HOME/.Gwords
 
-echo "Install MPlayer"
-sudo apt-get install mplayer
+if ! [[ `uname` == 'Darwin' || `uname` == 'darwin' ]]; then
+    echo "Install MPlayer"
+    sudo apt-get install mplayer
+fi
 
 echo "Reading the list"
 echo "You can press ctrl-C to terminate the process."
-./lib/mkvoice.sh
+bash ./lib/mkvoice.sh

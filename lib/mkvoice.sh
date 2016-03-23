@@ -7,6 +7,6 @@ do
     en=`sed -n $(( i * 2 + 1 )),1p ~/.Gwords/list.txt | tr [:space:] ' '`
     cn=`sed -n $(( i * 2 + 2 )),1p ~/.Gwords/list.txt | tr [:space:] ' '`
     echo '================================================'
-    gd $en
+    gw $en
     sleep 7
 done
