@@ -1,4 +1,4 @@
 # Gwords
 ```bash
-cd /tmp && git clone https://github.com/gaobinchuan/Gword.git && cd Gword && ./setup.sh
+cd /tmp && git clone https://github.com/gaobinchuan/Gwords.git && cd Gwords && ./setup.sh
 ```
