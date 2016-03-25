@@ -3,15 +3,15 @@ function download_pic () {
   if ! [ -d ~/.Gwords/img ]; then
       mkdir -p ~/.Gwords/img
   fi
-  if ! [ -f ~/.Gwords/img/${2}.jpg ]; then
-    youdao_img_html=`curl -s "http://image.youdao.com/search?q=${2}" |
+  if ! [ -f ~/.Gwords/img/${1}.jpg ]; then
+    youdao_img_html=`curl -s "http://image.youdao.com/search?q=${1}" |
         grep "img border" |
         grep "jpg" |
         head -1`
     cd ~/.Gwords/img
     b=${youdao_img_html#*src=\"}
     c=${b%%\"*}
-    curl -s -o "${2}.jpg" ${c}
+    curl -s -o "${1}.jpg" ${c}
   fi
 }
 
@@ -27,7 +27,7 @@ if ! [ ${1} ]; then
   notify-send -t 7 -i "${HOME}/.Gwords/img/${en}.jpg" "$en" "$zh"
   gr $en & >/dev/null
 else
-  download_pic "${1}" "${1}"
+  download_pic "${1}"
   notify-send -t 7 -i "${HOME}/.Gwords/img/${1}.jpg" "${1}" "`gd ${1} | sed -n '2,10p' | grep -v ^$ | head -7`"
 fi
 
