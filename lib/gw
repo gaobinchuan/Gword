@@ -1,4 +1,8 @@
 #!/bin/bash
+if [[ `uname` == 'Darwin' || `uname` == 'darwin' ]]; then
+  exit 0
+fi
+
 function download_pic () {
   if ! [ -d ~/.Gwords/img ]; then
       mkdir -p ~/.Gwords/img

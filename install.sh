@@ -60,4 +60,5 @@ fi
 
 echo "Reading the list"
 echo "You can press ctrl-C to terminate the process."
+source $HOME/.env
 bash ./lib/mkvoice.sh
